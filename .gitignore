@@ -1,6 +1,6 @@
 # paceljs
 .cache
-*/dist/*
+dist
 
 # General
 .DS_Store
