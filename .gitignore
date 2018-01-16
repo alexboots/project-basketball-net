@@ -1,10 +1,11 @@
+# paceljs
+.cache
+*/dist/*
+
 # General
 .DS_Store
 .AppleDouble
 .LSOverride
-
-# pacelks
-.cache
 
 # Icon must end with two \r
 Icon
