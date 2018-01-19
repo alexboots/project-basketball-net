@@ -1,4 +1,4 @@
-### React with basic babel / ES2015
+### React with Babel ES2015
 
 If you do not have [parceljs](https://parceljs.org/) installed run:
 
