@@ -1,0 +1,24 @@
+table: 
+netRequest
+
+createdAt
+// Need to use 
+//  https://developers.google.com/maps/documentation/javascript/geocoding 
+// to convert from location to lat / long and then use 
+//  https://developers.google.com/maps/documentation/javascript/geocoding#ReverseGeocoding
+// to decode back to address to show on screen ?
+location: [latitude 37.423021 and longitude -122.083739]
+requestFullfilled: false
+fullfilledDate: null
+
+
+
+
+
+UI flows
+
+>> Add new location
+  => search for park => say how many nets => add to DB
+  => click on map => say how many nets => add to DB
+>> Update existing location
+  => click on park location => say 'need X nets' or 'has nets'
