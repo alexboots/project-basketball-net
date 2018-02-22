@@ -11,6 +11,8 @@ location: [latitude 37.423021 and longitude -122.083739]
 requestFullfilled: false
 fullfilledDate: null
 
+table:
+netcount // total nets put up. not sure how to keep it up to date. 
 
 
 
