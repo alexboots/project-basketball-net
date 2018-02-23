@@ -7,9 +7,12 @@ createdAt
 // to convert from location to lat / long and then use 
 //  https://developers.google.com/maps/documentation/javascript/geocoding#ReverseGeocoding
 // to decode back to address to show on screen ?
+
 location: [latitude 37.423021 and longitude -122.083739]
 requestFullfilled: false
 fullfilledDate: null
+howManyNetsNeeded: null
+howManyBasketballHoops: null
 
 table:
 netcount // total nets put up. not sure how to keep it up to date. 
