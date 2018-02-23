@@ -26,7 +26,6 @@ class MapContainer extends Component {
       height: '600px' 
     }
 
-
     return (
       <div style={ mapHeightWidth }>
         <SelectParkMap 

@@ -1,0 +1,3 @@
+export const SET_PARK_NAME = 'SET_PARK_NAME '
+export const SET_NETS_NEEDED = 'SET_NETS_NEEDED'
+export const SET_HOOPS_COUNT = 'SET_HOOPS_COUNT'

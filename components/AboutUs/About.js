@@ -8,7 +8,7 @@ class About extends Component {
         <h3>Project basketball net</h3>
         <h4>About Us</h4>
 
-        <p>We put nets on basketball rims. </p>
+        <p>We put nets on basketball rims. { /*<b>Nets put up so far: #</b> - need to figure out best spot for this*/}</p>
 
         <p>Our goal is to ensure everyone knows the sweet sound of 'nothing but net'. Instead of waiting for someone else to come and improve our parks, we want to empower communities to take small steps towards bettering and maintaining our surroundings. </p>
 
