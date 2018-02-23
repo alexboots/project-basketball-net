@@ -27,7 +27,6 @@ class MapContainer extends Component {
 
   centerMapOnUsersLocation = (google, map, maps) => {
     const infoWindow = new google.maps.InfoWindow
-    this.handleLocationError()
 
     // Try HTML5 geolocation
     if (navigator.geolocation) {
@@ -38,9 +37,46 @@ class MapContainer extends Component {
         }
 
         infoWindow.setPosition(pos)
-        infoWindow.setContent('Location found.')
+        infoWindow.setContent('You are here :D')
         infoWindow.open(map)
         map.setCenter(pos)
+        map.setZoom(18)
+
+        // const service = new google.maps.places.PlacesService(map);
+        // service.nearbySearch(request, callback);
+
+        var service = new google.maps.places.PlacesService(map);
+        service.nearbySearch({
+          location: pos,
+          radius: 500,
+          type: ['park']
+        }, callback);
+
+        function callback(results, status) {
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            for (var i = 0; i < results.length; i++) {
+              createMarker(results[i], infoWindow);
+            }
+          }
+        }
+
+        function createMarker(place,) {
+          const placeLoc = place.geometry.location;
+          const marker = new google.maps.Marker({
+            map: map,
+            position: place.geometry.location
+          });
+
+          google.maps.event.addListener(marker, 'click', function() {
+            const infoWindow = new google.maps.InfoWindow
+            console.log('place.name', place);
+            console.log('place.name', place.name);
+            // infowindow.setContent(place.name);
+            // infowindow.open(map, this);
+          });
+        }
+
+
       }, () => {
         this.handleLocationError()
       })
@@ -62,12 +98,12 @@ class MapContainer extends Component {
 
     return (
        <GoogleMapReact
+        libraries={["places"]}
         onGoogleApiLoaded={ ({map, maps}) => {
             this.centerMapOnUsersLocation(google, map, maps)
           }
         }
         yesIWantToUseGoogleMapApiInternals
-        bootstrapURLKeys={{ key: "AIzaSyCZ4augeW0kEooAcyLHfF8C6I0_SuI13G0" }}
         defaultCenter={ defaultProps.center }
         defaultZoom={ defaultProps.zoom }
       >
