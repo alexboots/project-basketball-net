@@ -27,13 +27,12 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log('🗣  Database connection successful')
   defineModels()
-
 })
 
 function defineModels() {
   const requestLocationSchema = new mongoose.Schema({
     name: String,
-    loc: {
+    location: {
       type: { type: String, default: 'Point' },
       coordinates: { type: [Number], default: [0, 0] }
     },
@@ -41,7 +40,10 @@ function defineModels() {
     fulfilledDate: { type: Date, default: null },
     createdAt: { type: Date, default: Date.now },
     howManyNetsNeeded: Number,
-    howManyBasketballHoops: Number
+    howManyBasketballHoops: Number,
+    // Google maps related
+    place_id: String,
+    vicinity: String
   })
 
   // +1 everytime a request is fulfilled, should probably use a query instead
