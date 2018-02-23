@@ -12,6 +12,7 @@ if(!process.env.envFileExists) {
   console.log("Or ping  @alexboots and ask for it :)")
 }
 
+const port = process.env.port
 
 let connectionString = null
 if(process.env.environment === 'development') {
@@ -28,7 +29,6 @@ db.once('open', function() {
   defineModels()
 
 })
-
 
 function defineModels() {
   const requestLocationSchema = new mongoose.Schema({
@@ -50,22 +50,17 @@ function defineModels() {
   const RequestLocation = mongoose.model('RequestLocation', requestLocationSchema)
 
   // YEAH BB
-  RequestLocation.create({
-    name: 'Dallas TEHAS',
-    loc: {
-        type: 'Point',
-        // Place longitude first, then latitude
-        coordinates: [-79.3968307, 43.6656976]
-    },
-    howManyNetsNeeded: 3,
-    howManyBasketballHoops: 3
-  })
+  // RequestLocation.create({
+  //   name: 'Dallas TEHAS',
+  //   loc: {
+  //       type: 'Point',
+  //       // Place longitude first, then latitude
+  //       coordinates: [-79.3968307, 43.6656976]
+  //   },
+  //   howManyNetsNeeded: 3,
+  //   howManyBasketballHoops: 3
+  // })
 }
-
-
-const dbuser = process.env.dbuser
-const dbpass = process.env.dbpass
-const port = process.env.port
 
 app.use(cors())
 
