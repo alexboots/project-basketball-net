@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
-import TheMap from './TheMap'
-import './MapContainer.less'
+import SelectParkMap from './SelectParkMap'
+import './SelectParkContainer.less'
 
 class MapContainer extends Component {
   constructor(props) {
@@ -15,6 +15,10 @@ class MapContainer extends Component {
     //   console.log(error)
     // })
   }
+  
+  handleSetPark = (parkInfo) => {
+    console.log('parkInfo', parkInfo);
+  }
 
   render() {
     const mapHeightWidth = { 
@@ -22,9 +26,12 @@ class MapContainer extends Component {
       height: '600px' 
     }
 
+
     return (
       <div style={ mapHeightWidth }>
-        <TheMap />
+        <SelectParkMap 
+          handleSetPark={ this.handleSetPark }
+        />
       </div>
     )
   }

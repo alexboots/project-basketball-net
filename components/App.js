@@ -4,8 +4,8 @@ import { Menu, Segment } from 'semantic-ui-react'
 import './App.less'
 
 import About from './AboutUs/About'
-import MapContainer from './Map/MapContainer'
-import NetInfoInputs from './NetInfoInputs/NetInfoInputs'
+import SelectParkContainer from './SelectPark/SelectParkContainer'
+import InputCourtInfo from './InputCourtInfo/InputCourtInfo'
 
 class App extends Component {
   constructor() {
@@ -38,9 +38,15 @@ class App extends Component {
             onClick={ this.toggleMap }
           />
         </Menu>
-
-        <NetInfoInputs />
-        <MapContainer />
+        { this.state.showRequestMap ?
+            (
+              <div>
+                <InputCourtInfo />
+                <SelectParkContainer />
+              </div>
+            ) : (
+              'We will add this shortly!'
+        ) }
       </div>
     )
   }
