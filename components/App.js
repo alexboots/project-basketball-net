@@ -1,12 +1,45 @@
 import React, { Component } from 'react'
+import { Menu, Segment } from 'semantic-ui-react'
+
 import './App.less'
 
+import About from './AboutUs/About'
 import MapContainer from './Map/MapContainer'
+import NetInfoInputs from './NetInfoInputs/NetInfoInputs'
 
 class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      showRequestMap: true // shows request || requested maps
+    }
+  }
+
+  toggleMap = () => {
+    this.setState({
+      showRequestMap: !this.state.showRequestMap
+    })
+  }
+
   render() {  
     return (
-      <div className="hello" style={{width: '100%', height: '400px'}}>
+      <div>
+        <About />
+
+        <Menu pointing secondary>
+          <Menu.Item 
+            active={ this.state.showRequestMap } 
+            name='Request Nets'
+            onClick={ this.toggleMap } 
+          />
+          <Menu.Item 
+            active={ !this.state.showRequestMap } 
+            name='Needs Nets' 
+            onClick={ this.toggleMap }
+          />
+        </Menu>
+
+        <NetInfoInputs />
         <MapContainer />
       </div>
     )

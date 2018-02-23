@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import GoogleMapReact from 'google-map-react'
 
-class Map extends Component {
+class TheMap extends Component {
   centerMapOnUsersLocation = (google, map, maps) => {
     const infoWindow = new google.maps.InfoWindow
 
@@ -55,6 +55,7 @@ class Map extends Component {
 
 
       }, () => {
+        // Please allow location services because we fucked
         this.handleLocationError()
       })
     } else {
@@ -88,4 +89,4 @@ class Map extends Component {
   }
 }
 
-export default Map
+export default TheMap
