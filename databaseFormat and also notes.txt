@@ -27,3 +27,7 @@ UI flows
   => click on map => say how many nets => add to DB
 >> Update existing location
   => click on park location => say 'need X nets' or 'has nets'
+
+
+>> Show 'needs nets'
+  => with 'nets put up' button that sets `requestFullfilled` to true
