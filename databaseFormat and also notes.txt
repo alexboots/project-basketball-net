@@ -27,3 +27,10 @@ UI flows
   => click on map => say how many nets => add to DB
 >> Update existing location
   => click on park location => say 'need X nets' or 'has nets'
+
+
+>> Show 'needs nets'
+  => with 'nets put up' button that sets `requestFullfilled` to true
+
+when creating marker for 'needs nets' use this 
+  icon: https://mt.googleapis.com/vt/icon/name=icons/onion/SHARED-mymaps-container-bg_4x.png,icons/onion/SHARED-mymaps-container_4x.png,icons/onion/1520-basketball_4x.png&highlight=ff000000,F57C00&scale=2.0
