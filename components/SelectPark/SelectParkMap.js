@@ -1,8 +1,17 @@
 import React, { Component } from 'react'
-import GoogleMapReact from 'google-map-react'
 
 class SelectParkMap extends Component {
-  centerMapOnUsersLocation = (google, map, maps) => {
+  componentDidMount() {
+    const NY = { lat: 40.74, lng: -73.94 }
+    const map = new google.maps.Map(document.getElementById('map'), {
+      center: NY,
+      zoom: 12
+    })
+
+    this.centerMapOnUsersLocation(map)
+  }
+
+  centerMapOnUsersLocation = (map) => {
     const infoWindow = new google.maps.InfoWindow
 
     // Try HTML5 geolocation
@@ -13,17 +22,16 @@ class SelectParkMap extends Component {
           lng: position.coords.longitude
         }
 
+        console.log('pos', pos);
+
         infoWindow.setPosition(pos)
         infoWindow.setContent('You are here')
         infoWindow.open(map)
         map.setCenter(pos)
         map.setZoom(16)
 
-        this.setState = ({
-          userPosition: pos           
-        })
-
-        this.showParksOnMap(google, map, maps, pos)
+        // Show markers for parks nearby
+        this.showParksOnMap(map, pos)
 
       }, () => {
         // Please allow location services because we fucked
@@ -35,8 +43,9 @@ class SelectParkMap extends Component {
     }
   }
 
-  showParksOnMap = (google, map, maps, pos) => {
+  showParksOnMap = (map, pos) => {
     const { handleSetPark } = this.props
+    const that = this
     
     const service = new google.maps.places.PlacesService(map)
     service.nearbySearch({
@@ -60,7 +69,6 @@ class SelectParkMap extends Component {
         position: place.geometry.location
       })
 
-
       google.maps.event.addListener(marker, 'click', function () {
         const placeInfoWindow = new google.maps.InfoWindow()
         console.log('place.name', place)
@@ -79,34 +87,22 @@ class SelectParkMap extends Component {
     console.warn('GeoLocation data not available')
   }
 
-
-
   handleOnChange = ({ center, zoom, bounds, marginBounds }) => {
     // this.centerMapOnUsersLocation(google, map, maps)
     console.log('change');
     // console.log('center, zoom, bounds, marginBounds', center, zoom, bounds, marginBounds);
   }
 
+  onChildClick = (key, childProps) => {
+    console.log('sp');
+  }
+
+
   render() {
     // shows mainly brooklyn / manhattan
-    const NY = { lat: 40.74, lng: -73.94 }
-
-    const defaultProps = {
-      center: NY,
-      zoom: 12
-    }
-
+    
     return (
-       <GoogleMapReact
-        onChange={ this.handleOnChange }
-        onGoogleApiLoaded={ ({map, maps}) => {
-            this.centerMapOnUsersLocation(google, map, maps)
-          }
-        }
-        yesIWantToUseGoogleMapApiInternals
-        center={ defaultProps.center }
-        zoom={ defaultProps.zoom }
-      />
+      <div id="map" style={{height: '100%'}}></div>
     )
   }
 }

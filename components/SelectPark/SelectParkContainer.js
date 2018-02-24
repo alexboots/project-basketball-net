@@ -23,26 +23,14 @@ class MapContainer extends Component {
   render() {
     const mapHeightWidth = { 
       width: '100%',
-      height: '1000px',
-      // Todo: issue : markers on the top half of the map are not clickable ?? 
-      // its probably because i'm not displaying markers how the component wants me to
-      // try adding markers as children and use components power
-      // for not hackily hide the top half of the map :P, find proper solution when more time is available
-      marginTop: '-500px'
-    }
-
-    const hackyFix = {
-      height: '500px',
-      overflow: 'hidden'
+      height: '600px',
     }
 
     return (
-      <div style={ hackyFix }>
-        <div style={ mapHeightWidth }>
-          <SelectParkMap 
-            handleSetPark={ this.handleSetPark }
-          />
-        </div>
+      <div style={ mapHeightWidth }>
+        <SelectParkMap 
+          handleSetPark={ this.handleSetPark }
+        />
       </div>
     )
   }
