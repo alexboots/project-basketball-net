@@ -28,12 +28,13 @@ db.once('open', function() {
   defineModels()
 })
 
+let RequestLocation
 function defineModels() {
   const requestLocationSchema = new mongoose.Schema({
     fullAddress: String,
     location: {
       type: { type: String, default: 'Point' },
-      coordinates: { type: [Number], default: [0, 0] }
+      coordinates: [Number]
     },
     placeId: String,
     createdAt: { type: Date, default: Date.now },
@@ -42,8 +43,8 @@ function defineModels() {
 
     // inputs
     notes: String,
-    howManyNetsNeeded: Number,
-    howManyBasketballHoops: Number,
+    nets: Number,
+    hoops: Number,
   })
 
   // name
@@ -54,31 +55,30 @@ function defineModels() {
   // +1 everytime a request is fulfilled, should probably use a query instead
   const netCountSchema = new mongoose.Schema({ ammount: Number })
 
-  const RequestLocation = mongoose.model('RequestLocation', requestLocationSchema)
-
-  // YEAH BB
-  // RequestLocation.create({
-  //   name: 'Dallas TEHAS',
-  //   loc: {
-  //       type: 'Point',
-  //       // Place longitude first, then latitude
-  //       coordinates: [-79.3968307, 43.6656976]
-  //   },
-  //   howManyNetsNeeded: 3,
-  //   howManyBasketballHoops: 3
-  // })
+  RequestLocation = mongoose.model('RequestLocation', requestLocationSchema)
 }
 
 app.use(cors())
+app.use(bodyParser.json())
 
-app.get('/api/request/:id', (req, res) => {
-  console.log('req', req.params.id);
-   res.send('sup');
-});
 
 app.post('/request', (req, res) => {
-  // You'll create your note here.
-  res.send('Hello')
+
+  console.log('F', {
+    ...req.body,
+    location: {
+      coordinates: [req.body.location.lat, req.body.location.lng]
+    }
+  });
+
+  RequestLocation.create({
+    ...req.body,
+    location: {
+      coordinates: [req.body.location.lat, req.body.location.lng]
+    }
+  })
+
+  res.send('REQUESTED')
 });
 
 app.get('/', (req, res) => {

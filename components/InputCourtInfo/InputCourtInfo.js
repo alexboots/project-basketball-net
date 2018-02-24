@@ -14,7 +14,7 @@ class InputCourtInfo extends Component {
 
   handleRequest = (e) => {
     e.preventDefault()
-    this.props.submitRequest({ 
+    this.props.handleRequest({ 
       nets: this.state.nets,
       hoops: this.state.hoops,
       notes: this.state.notes
@@ -68,6 +68,7 @@ class InputCourtInfo extends Component {
               </Button>
             </Grid.Column>
           </Grid.Row>
+          { /* todo: add something to the map itself to say 'location selected', this is crap UX */ }
           { this.props.parkInfo && 
             <Grid.Row>
               <Grid.Column>
