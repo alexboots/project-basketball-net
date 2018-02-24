@@ -87,17 +87,6 @@ class SelectParkMap extends Component {
     console.warn('GeoLocation data not available')
   }
 
-  handleOnChange = ({ center, zoom, bounds, marginBounds }) => {
-    // this.centerMapOnUsersLocation(google, map, maps)
-    console.log('change');
-    // console.log('center, zoom, bounds, marginBounds', center, zoom, bounds, marginBounds);
-  }
-
-  onChildClick = (key, childProps) => {
-    console.log('sp');
-  }
-
-
   render() {
     // shows mainly brooklyn / manhattan
     
