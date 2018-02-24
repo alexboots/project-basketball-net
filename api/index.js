@@ -39,6 +39,7 @@ function defineModels() {
     requestFulfilled: { type: Boolean, default: false },
     fulfilledDate: { type: Date, default: null },
     createdAt: { type: Date, default: Date.now },
+    notes: String,
     howManyNetsNeeded: Number,
     howManyBasketballHoops: Number,
     // Google maps related

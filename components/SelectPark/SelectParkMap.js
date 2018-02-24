@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import GoogleMapReact from 'google-map-react'
 
-const defaultPosition = { lat: 40.74, lng: -73.94 }
 class SelectParkMap extends Component {
   centerMapOnUsersLocation = (google, map, maps) => {
     const infoWindow = new google.maps.InfoWindow
@@ -18,9 +17,12 @@ class SelectParkMap extends Component {
         infoWindow.setContent('You are here')
         infoWindow.open(map)
         map.setCenter(pos)
-        map.setZoom(18)
+        map.setZoom(16)
 
-        
+        this.setState = ({
+          userPosition: pos           
+        })
+
         this.showParksOnMap(google, map, maps, pos)
 
       }, () => {
@@ -35,6 +37,7 @@ class SelectParkMap extends Component {
 
   showParksOnMap = (google, map, maps, pos) => {
     const { handleSetPark } = this.props
+    
     const service = new google.maps.places.PlacesService(map)
     service.nearbySearch({
       location: pos,
@@ -57,10 +60,12 @@ class SelectParkMap extends Component {
         position: place.geometry.location
       })
 
+
       google.maps.event.addListener(marker, 'click', function () {
-        const placeInfoWindow = new google.maps.InfoWindow
+        const placeInfoWindow = new google.maps.InfoWindow()
         console.log('place.name', place)
         console.log('place.name', place.name)
+        console.log('\n');
         placeInfoWindow.setContent(`${place.name} (selected)`)
         placeInfoWindow.open(map, this)
 
@@ -74,21 +79,33 @@ class SelectParkMap extends Component {
     console.warn('GeoLocation data not available')
   }
 
+
+
+  handleOnChange = ({ center, zoom, bounds, marginBounds }) => {
+    // this.centerMapOnUsersLocation(google, map, maps)
+    console.log('change');
+    // console.log('center, zoom, bounds, marginBounds', center, zoom, bounds, marginBounds);
+  }
+
   render() {
+    // shows mainly brooklyn / manhattan
+    const NY = { lat: 40.74, lng: -73.94 }
+
     const defaultProps = {
-      center: defaultPosition,
+      center: NY,
       zoom: 12
     }
 
     return (
        <GoogleMapReact
+        onChange={ this.handleOnChange }
         onGoogleApiLoaded={ ({map, maps}) => {
             this.centerMapOnUsersLocation(google, map, maps)
           }
         }
         yesIWantToUseGoogleMapApiInternals
-        defaultCenter={ defaultProps.center }
-        defaultZoom={ defaultProps.zoom }
+        center={ defaultProps.center }
+        zoom={ defaultProps.zoom }
       />
     )
   }
