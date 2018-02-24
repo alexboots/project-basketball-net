@@ -1,23 +1,24 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import axios from 'axios'
+
+import { setLocation } from '../../_actions'
 
 import SelectParkMap from './SelectParkMap'
 import './SelectParkContainer.less'
 
 class MapContainer extends Component {
-  constructor(props) {
-    super(props)
-    // axios.get('http://localhost:3000/api/request/12345')
-    // .then(function (res) {
-    //   console.log('hi', res.data)
-    // })
-    // .catch(function (error) {
-    //   console.log(error)
-    // })
-  }
-  
   handleSetPark = (parkInfo) => {
-    console.log('parkInfo', parkInfo);
+    const formattedInfo = {
+      location: { 
+        lat: parkInfo.geometry.location.lat(),
+        lng: parkInfo.geometry.location.lng()
+      },
+      fullAddress: parkInfo.formatted_address,
+      placeId: parkInfo.place_id
+    }
+
+    this.props.setLocation(formattedInfo)
   }
 
   render() {
@@ -36,4 +37,10 @@ class MapContainer extends Component {
   }
 }
 
-export default MapContainer
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  setLocation: (info) => {
+    dispatch(setLocation(info))
+  }
+})
+
+export default connect(null, mapDispatchToProps)(MapContainer)

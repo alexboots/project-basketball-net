@@ -5,7 +5,7 @@ import './App.less'
 
 import About from './AboutUs/About'
 import SelectParkContainer from './SelectPark/SelectParkContainer'
-import InputCourtInfo from './InputCourtInfo/InputCourtInfo'
+import InputCourtInfoContainer from './InputCourtInfo/InputCourtInfoContainer'
 
 class App extends Component {
   constructor() {
@@ -41,7 +41,7 @@ class App extends Component {
         { this.state.showRequestMap ?
             (
               <div>
-                <InputCourtInfo />
+                <InputCourtInfoContainer />
                 <SelectParkContainer />
               </div>
             ) : (

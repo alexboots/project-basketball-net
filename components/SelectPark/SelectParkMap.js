@@ -8,6 +8,36 @@ class SelectParkMap extends Component {
       zoom: 12
     })
 
+    // map.addListener('center_changed', () => {
+    //     console.log('LOL');
+    //     console.log(map.getCenter().lat());
+    //     // map.getZoom()
+    //     const pos = { lat: map.getCenter().lat(), lng: map.getCenter().lng() }
+    //     this.showParksOnMap(map, pos)
+    // })
+
+    // map.addListener('zoom_changed', () => {
+    //     console.log('zoom');
+    //     const pos = { lat: map.getCenter().lat(), lng: map.getCenter().lng() }
+    //     this.showParksOnMap(map, pos)
+    // })
+
+    const geocoder = new google.maps.Geocoder
+    map.addListener('click', (e) => {
+      if(e.placeId) {
+        geocoder.geocode({'placeId': e.placeId}, (results, status) => {
+          if (status === 'OK') {
+            if (results[0]) {
+              map.setCenter(results[0].geometry.location);
+              this.props.handleSetPark(results[0])
+              // todo: add errors
+            } 
+          }
+        })
+      }
+      
+    })
+
     this.centerMapOnUsersLocation(map)
   }
 
@@ -22,16 +52,14 @@ class SelectParkMap extends Component {
           lng: position.coords.longitude
         }
 
-        console.log('pos', pos);
-
         infoWindow.setPosition(pos)
         infoWindow.setContent('You are here')
         infoWindow.open(map)
         map.setCenter(pos)
-        map.setZoom(16)
+        map.setZoom(18)
 
         // Show markers for parks nearby
-        this.showParksOnMap(map, pos)
+        // this.showParksOnMap(map, pos)
 
       }, () => {
         // Please allow location services because we fucked
@@ -43,55 +71,53 @@ class SelectParkMap extends Component {
     }
   }
 
-  showParksOnMap = (map, pos) => {
-    const { handleSetPark } = this.props
-    const that = this
+  // Maybe delete all this = need to play around with it. It doesn't show all parks :(
+  //
+  // showParksOnMap = (map, pos) => {
+  //   const { handleSetPark } = this.props
+  //   const that = this
     
-    const service = new google.maps.places.PlacesService(map)
-    service.nearbySearch({
-      location: pos,
-      radius: 1000,
-      type: ['park']
-    }, placeParks)
+  //   const service = new google.maps.places.PlacesService(map)
+  //   service.nearbySearch({
+  //     location: pos,
+  //     radius: 1000,
+  //     type: ['park', 'point_of_interest']
+  //   }, placeParks)
 
-    function placeParks (results, status) {
-      if (status === google.maps.places.PlacesServiceStatus.OK) {
-        for (let i = 0; i < results.length; i++) {
-          createMarker(results[i]);
-        }
-      }
-    }
+  //   function placeParks (results, status) {
+  //     if (status === google.maps.places.PlacesServiceStatus.OK) {
+  //       for (let i = 0; i < results.length; i++) {
+  //         createMarker(results[i]);
+  //       }
+  //     }
+  //   }
 
-    function createMarker(place) {
-      const placeLoc = place.geometry.location;
-      const marker = new google.maps.Marker({
-        map: map,
-        position: place.geometry.location
-      })
+  //   function createMarker(place) {
+  //     const placeLoc = place.geometry.location;
+  //     const marker = new google.maps.Marker({
+  //       map: map,
+  //       position: place.geometry.location
+  //     })
 
-      google.maps.event.addListener(marker, 'click', function () {
-        const placeInfoWindow = new google.maps.InfoWindow()
-        console.log('place.name', place)
-        console.log('place.name', place.name)
-        console.log('\n');
-        placeInfoWindow.setContent(`${place.name} (selected)`)
-        placeInfoWindow.open(map, this)
+  //     google.maps.event.addListener(marker, 'click', function () {
+  //       const placeInfoWindow = new google.maps.InfoWindow()
 
-        // and pass data
-        handleSetPark(place)
-      })
-    }
-  }
+  //       placeInfoWindow.setContent(`${place.name} (selected)`)
+  //       placeInfoWindow.open(map, this)
+
+  //       // and pass data
+  //       handleSetPark(place)
+  //     })
+  //   }
+  // }
 
   handleLocationError = () => {
     console.warn('GeoLocation data not available')
   }
 
   render() {
-    // shows mainly brooklyn / manhattan
-    
     return (
-      <div id="map" style={{height: '100%'}}></div>
+      <div id="map" style={{ height: '100%' }}></div>
     )
   }
 }

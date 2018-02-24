@@ -1,18 +1,22 @@
-import { SET_PARK_NAME, SET_NETS_NEEDED, SET_HOOPS_COUNT } from '../_constants/actions'
+import { SET_SELECTED_LOCATION } from '../_constants/actions'
 
 const defaultState = {
-  name: '',
-  howManyNetsNeeded: 0,
-  howManyBasketballHoops: 0
+  location: { 
+    lat: null,
+    lng: null
+  },
+  fullAddress: null,
+  placeId: null
 }
 
 const setPark = (state = defaultState, action) => {
   switch (action.type) {
 
-    case SET_PARK_NAME:
-      action.name 
+    case SET_SELECTED_LOCATION:
+      console.log('action', action.parkInfo);
       return {
-        ...state
+        ...state,
+        ...action.parkInfo
       }
     default:
       return state

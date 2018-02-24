@@ -5,7 +5,6 @@ const cors         = require('cors')
 const bodyParser   = require('body-parser')
 const mongoose = require('mongoose')
 
-
 if(!process.env.envFileExists) {
   console.log("!!! The .env file does not exist")
   console.log("Please rename .env.development to .env")
@@ -31,20 +30,20 @@ db.once('open', function() {
 
 function defineModels() {
   const requestLocationSchema = new mongoose.Schema({
-    name: String,
+    fullAddress: String,
     location: {
       type: { type: String, default: 'Point' },
       coordinates: { type: [Number], default: [0, 0] }
     },
+    placeId: String,
+    createdAt: { type: Date, default: Date.now },
     requestFulfilled: { type: Boolean, default: false },
     fulfilledDate: { type: Date, default: null },
-    createdAt: { type: Date, default: Date.now },
+
+    // inputs
     notes: String,
     howManyNetsNeeded: Number,
     howManyBasketballHoops: Number,
-    // Google maps related
-    place_id: String,
-    vicinity: String
   })
 
   // name
