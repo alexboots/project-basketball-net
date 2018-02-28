@@ -40,7 +40,11 @@ class App extends Component {
     return (
       <Container className="app-wrapper">
         <div className="app-header">
-          <Header as='h2'> Project basketball net</Header>
+          <Header as='h2'> Project Basketball Net 
+            <Header.Subheader>
+              We put nets on basketball rims
+            </Header.Subheader>
+          </Header>
         </div>
         <Menu pointing secondary>
           <Menu.Item 

@@ -29,11 +29,23 @@ class InputCourtInfo extends Component {
         <Grid columns='equal' stackable>
           <Grid.Row>
             <Grid.Column>
-              <h4>Court Location</h4>
-              <h5>{ this.props.parkInfo ? this.props.parkInfo.formattedAddress : '(Tap place below to set location)' }</h5>
+              <span className="label-count-location">
+                Location: 
+              
+
+                { this.props.parkInfo ? (
+                  <span>
+                    { ` ${this.props.parkInfo.formattedAddress} ` }
+                    <Icon disabled name='checkmark' color='green' />
+                  </span>) 
+                  :  (' (Tap map below to set) ') 
+                }
+              </span>
             </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
             <Grid.Column>
-              <h4>Number of Nets needed </h4>
+              <h4>Nets needed </h4>
               <Input 
                 type="number" 
                 placeholder="#" 
@@ -42,7 +54,7 @@ class InputCourtInfo extends Component {
               />
             </Grid.Column>
             <Grid.Column>
-              <h4>Number of Hoops at court</h4>
+              <h4>Hoops at court</h4>
               <Input 
                 type="number" 
                 placeholder="#" 
@@ -68,17 +80,6 @@ class InputCourtInfo extends Component {
               </Button>
             </Grid.Column>
           </Grid.Row>
-          { /* todo: is this + adding pin on map good enough? consider UX */ }
-          { this.props.parkInfo && 
-            <Grid.Row>
-              <Grid.Column>
-                <Header as='h4'>
-                  <Icon disabled name='checkmark' color='green' />
-                  Address Selected
-               </Header>
-              </Grid.Column>
-            </Grid.Row>
-          }
         </Grid>
       </div>
     )
