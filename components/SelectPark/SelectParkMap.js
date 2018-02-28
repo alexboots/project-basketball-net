@@ -24,18 +24,18 @@ class SelectParkMap extends Component {
 
     const geocoder = new google.maps.Geocoder
     map.addListener('click', (e) => {
-      if(e.placeId) {
-        geocoder.geocode({ 'placeId': e.placeId}, (results, status) => {
-          if (status === 'OK') {
-            if (results[0]) {
-              map.setCenter(results[0].geometry.location);
-              this.props.handleSetPark(results[0])
-              // todo: add errors
-            } 
-          }
-        })
-      }
+      console.log('e.latLng', e.latLng);
       
+      geocoder.geocode({
+        'latLng': e.latLng
+      }, function(results, status) {
+        console.log('results', results);
+        if (status == google.maps.GeocoderStatus.OK) {
+          if (results[0]) {
+            results[0].formatted_address
+          }
+        }
+      })
     })
 
     this.centerMapOnUsersLocation(map)
@@ -71,6 +71,7 @@ class SelectParkMap extends Component {
     }
   }
 
+
   // Maybe delete all this = need to play around with it. It doesn't show all parks :(
   //
   // showParksOnMap = (map, pos) => {
@@ -80,8 +81,8 @@ class SelectParkMap extends Component {
   //   const service = new google.maps.places.PlacesService(map)
   //   service.nearbySearch({
   //     location: pos,
-  //     radius: 1000,
-  //     type: ['park', 'point_of_interest']
+  //     radius: 50,
+  //     // type: ['park', 'point_of_interest']
   //   }, placeParks)
 
   //   function placeParks (results, status) {

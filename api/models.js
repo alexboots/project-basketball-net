@@ -6,7 +6,6 @@ const requestLocationSchema = new mongoose.Schema({
     type: { type: String, default: 'Point' },
     coordinates: [Number]
   },
-  placeId: String,
   createdAt: { type: Date, default: Date.now },
   requestFulfilled: { type: Boolean, default: false },
   fulfilledDate: { type: Date, default: null },
