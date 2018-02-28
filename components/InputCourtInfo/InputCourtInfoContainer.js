@@ -34,8 +34,6 @@ class InputCourtInfoContainer extends Component {
   }
 }
 
-
-
 const mapStateToProps = (state, ownProps) => {
   return { 
     parkInfo: state.parkInfo.fullAddress ? state.parkInfo : null
@@ -45,7 +43,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => ({
   clickButton: () => {
     // { ...ownProps.parkInfo, 
-    // dispatch(clickButton())
+    // dispatch(clickButton()) 
   }
 })
 

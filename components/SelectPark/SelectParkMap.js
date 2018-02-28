@@ -25,7 +25,7 @@ class SelectParkMap extends Component {
     const geocoder = new google.maps.Geocoder
     map.addListener('click', (e) => {
       if(e.placeId) {
-        geocoder.geocode({'placeId': e.placeId}, (results, status) => {
+        geocoder.geocode({ 'placeId': e.placeId}, (results, status) => {
           if (status === 'OK') {
             if (results[0]) {
               map.setCenter(results[0].geometry.location);

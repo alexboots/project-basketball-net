@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Menu, Segment } from 'semantic-ui-react'
+import { Container, Header, Menu, Segment } from 'semantic-ui-react'
 
 import './App.less'
 
@@ -7,47 +7,62 @@ import About from './AboutUs/About'
 import SelectParkContainer from './SelectPark/SelectParkContainer'
 import InputCourtInfoContainer from './InputCourtInfo/InputCourtInfoContainer'
 
+import {  
+  TAB_REQUEST_MAP,
+  TAB_REQUESTED_MAP,
+  TAB_ABOUT_US
+} from '../_constants/tabs'
+
 class App extends Component {
   constructor() {
     super()
     this.state = {
-      showRequestMap: true // shows request || requested maps
+      tab: TAB_REQUEST_MAP
     }
   }
 
-  toggleMap = () => {
-    this.setState({
-      showRequestMap: !this.state.showRequestMap
-    })
+  renderTab = (tab) => {
+    if(tab === TAB_REQUEST_MAP) {
+      return(
+        <div>
+          <InputCourtInfoContainer />
+          <SelectParkContainer />
+        </div>
+      )
+    } else if(tab === TAB_REQUESTED_MAP) {
+      return ('We will add this shortly!')
+    } else if(tab === TAB_ABOUT_US) {
+      return (<About />)
+    }
   }
 
   render() {  
     return (
-      <div>
-        <About />
-
+      <Container className="app-wrapper">
+        <div className="app-header">
+          <Header as='h2'> Project basketball net</Header>
+        </div>
         <Menu pointing secondary>
           <Menu.Item 
-            active={ this.state.showRequestMap } 
+            active={ this.state.tab === TAB_REQUEST_MAP } 
             name='Request Nets'
-            onClick={ this.toggleMap } 
+            onClick={ () => this.setState({ tab: TAB_REQUEST_MAP }) } 
           />
           <Menu.Item 
-            active={ !this.state.showRequestMap } 
-            name='Needs Nets' 
-            onClick={ this.toggleMap }
+            active={ this.state.tab === TAB_REQUESTED_MAP  } 
+            name='Needs Nets'
+            onClick={ () => this.setState({ tab: TAB_REQUESTED_MAP }) } 
+          />
+          <Menu.Item 
+            active={ this.state.tab === TAB_ABOUT_US } 
+            name='About' 
+            onClick={ () => this.setState({ tab: TAB_ABOUT_US }) }
           />
         </Menu>
-        { this.state.showRequestMap ?
-            (
-              <div>
-                <InputCourtInfoContainer />
-                <SelectParkContainer />
-              </div>
-            ) : (
-              'We will add this shortly!'
-        ) }
-      </div>
+        { 
+          this.renderTab(this.state.tab)
+        }
+      </Container>
     )
   }
 }
