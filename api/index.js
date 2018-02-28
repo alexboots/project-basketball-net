@@ -5,6 +5,8 @@ const cors         = require('cors')
 const bodyParser   = require('body-parser')
 const mongoose = require('mongoose')
 
+const RequestLocation = require('./models')
+
 if(!process.env.envFileExists) {
   console.log("!!! The .env file does not exist")
   console.log("Please rename .env.development to .env")
@@ -25,45 +27,14 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log('🗣  Database connection successful')
-  defineModels()
 })
 
-let RequestLocation
-function defineModels() {
-  const requestLocationSchema = new mongoose.Schema({
-    fullAddress: String,
-    location: {
-      type: { type: String, default: 'Point' },
-      coordinates: [Number]
-    },
-    placeId: String,
-    createdAt: { type: Date, default: Date.now },
-    requestFulfilled: { type: Boolean, default: false },
-    fulfilledDate: { type: Date, default: null },
-
-    // inputs
-    notes: String,
-    nets: Number,
-    hoops: Number,
-  })
-
-  // name
-  // howManyNetsNeeded
-  // howManyBasketballHoops
-
-
-  // +1 everytime a request is fulfilled, should probably use a query instead
-  const netCountSchema = new mongoose.Schema({ ammount: Number })
-
-  RequestLocation = mongoose.model('RequestLocation', requestLocationSchema)
-}
 
 app.use(cors())
 app.use(bodyParser.json())
 
 
 app.post('/request', (req, res) => {
-
   console.log('F', {
     ...req.body,
     location: {
