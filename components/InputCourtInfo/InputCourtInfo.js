@@ -30,7 +30,7 @@ class InputCourtInfo extends Component {
           <Grid.Row>
             <Grid.Column>
               <span className="label-count-location">
-                Location: 
+                Location:  
                 { this.props.parkInfo ? (
                   <span>
                     { ` ${this.props.parkInfo.formattedAddress} ` }

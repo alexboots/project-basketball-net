@@ -27,12 +27,16 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log('🗣  Database connection successful')
+  const x = RequestLocation.find({
+    requestFulfilled: false
+  })
+  // make maerker on map where its been requested already
+  console.log('x', x)
 })
 
 
 app.use(cors())
 app.use(bodyParser.json())
-
 
 app.post('/request', (req, res) => {
   console.log('F', {

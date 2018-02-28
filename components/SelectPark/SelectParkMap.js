@@ -1,6 +1,17 @@
 import React, { Component } from 'react'
+import { Button, Loader, Segment } from 'semantic-ui-react'
 
 class SelectParkMap extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      loadingLocation: false,
+      locationError: false,
+      googleMapsError: false // TODO: add error message for goolge maps failure
+
+    }
+  }
   componentDidMount() {
     const NY = { lat: 40.74, lng: -73.94 }
     this.marker = null
@@ -42,7 +53,10 @@ class SelectParkMap extends Component {
   }
 
   centerMapOnUsersLocation = (map) => {
+    this.setState({ loadingLocation: true })
+
     const infoWindow = new google.maps.InfoWindow
+    const geoLocationError = "Geolocation: Issue finding your location"
 
     // Try HTML5 geolocation
     if (navigator.geolocation) {
@@ -58,16 +72,22 @@ class SelectParkMap extends Component {
         this.map.setCenter(pos)
         this.map.setZoom(18)
 
-        // Show markers for parks nearby
-        // this.showParksOnMap(map, pos)
-
+        this.setState({ loadingLocation: false })
       }, () => {
         // Please allow location services because we fucked
-        this.handleLocationError()
+        console.error(geoLocationError)
+        this.setState({ 
+          loadingLocation: false,
+          locationError: true
+        })
       })
     } else {
       // Browser doesn't support Geolocation
-      this.handleLocationError()
+      console.error(geoLocationError)
+      this.setState({ 
+        loadingLocation: false,
+        locationError: true
+      })
     }
   }
 
@@ -83,8 +103,28 @@ class SelectParkMap extends Component {
   }
 
   render() {
+    console.log('this.state.loadingLocation', this.state.loadingLocation);
     return (
-      <div id="map" style={{ height: '100%' }}></div>
+      <span>
+
+        <div className="btn-find-me">
+          <Button 
+            size='small' 
+            onClick={ this.centerMapOnUsersLocation }
+            disabled={ this.state.loadingLocation } 
+          >
+            { this.state.loadingLocation ? <Loader size='small' inline active /> : 'Zoom into my location' }
+          </Button>
+        </div>
+
+        { this.state.locationError && 
+          <Segment color='red'>
+            Could not find your location :/
+          </Segment>
+        }
+
+        <div id="map" style={{ height: '100%' }}></div>
+      </span>
     )
   }
 }
