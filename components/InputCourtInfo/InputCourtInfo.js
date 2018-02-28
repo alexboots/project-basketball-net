@@ -32,7 +32,7 @@ class InputCourtInfo extends Component {
               <span className="label-count-location">
                 Location:  
                 { this.props.parkInfo ? (
-                  <span>
+                  <span className="underlined">
                     { ` ${this.props.parkInfo.formattedAddress} ` }
                     <Icon disabled name='checkmark' color='green' />
                   </span>) 

@@ -103,7 +103,6 @@ class SelectParkMap extends Component {
   }
 
   render() {
-    console.log('this.state.loadingLocation', this.state.loadingLocation);
     return (
       <span>
 
