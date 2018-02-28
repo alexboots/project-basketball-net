@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const requestLocationSchema = new mongoose.Schema({
-  fullAddress: String,
+  formattedAddress: String,
   location: {
     type: { type: String, default: 'Point' },
     coordinates: [Number]

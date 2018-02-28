@@ -13,7 +13,6 @@ class InputCourtInfoContainer extends Component {
       ...this.props.parkInfo
     }
 
-    console.log('mergedData ', mergedData );
     axios.post('http://localhost:3000/request/', mergedData)
     .then(function (response) {
       console.log(response);
@@ -36,7 +35,7 @@ class InputCourtInfoContainer extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return { 
-    parkInfo: state.parkInfo.fullAddress ? state.parkInfo : null
+    parkInfo: state.parkInfo.formattedAddress ? state.parkInfo : null
   }
 }
 

@@ -6,8 +6,8 @@ class InputCourtInfo extends Component {
   constructor() {
     super()
     this.state = { 
-      nets: '',
-      hoops: '',
+      netsRequested: '',
+      hoopsCount: '',
       notes: ''
     }
   }
@@ -15,14 +15,14 @@ class InputCourtInfo extends Component {
   handleRequest = (e) => {
     e.preventDefault()
     this.props.handleRequest({ 
-      nets: this.state.nets,
-      hoops: this.state.hoops,
+      netsRequested: this.state.netsRequested,
+      hoopsCount: this.state.hoopsCount,
       notes: this.state.notes
     })
   }
 
   render() {
-    const disabled = !(this.props.parkInfo !== null && this.state.nets.length !== 0 && this.state.hoops.length !== 0)
+    const disabled = !(this.props.parkInfo !== null && this.state.netsRequested.length !== 0 && this.state.hoopsCount.length !== 0)
 
     return (
       <div className="net-info-inputs">
@@ -30,14 +30,14 @@ class InputCourtInfo extends Component {
           <Grid.Row>
             <Grid.Column>
               <h4>Court Location</h4>
-              <h5>{ this.props.parkInfo ? this.props.parkInfo.fullAddress : '(Tap place below to set location)' }</h5>
+              <h5>{ this.props.parkInfo ? this.props.parkInfo.formattedAddress : '(Tap place below to set location)' }</h5>
             </Grid.Column>
             <Grid.Column>
               <h4>Number of Nets needed </h4>
               <Input 
                 type="number" 
                 placeholder="#" 
-                value={ this.state.nets } 
+                value={ this.state.netsRequested } 
                 onChange={ (e) => this.setState({ nets: e.target.value }) }
               />
             </Grid.Column>
@@ -46,7 +46,7 @@ class InputCourtInfo extends Component {
               <Input 
                 type="number" 
                 placeholder="#" 
-                value={ this.state.hoops } 
+                value={ this.state.hoopsCount } 
                 onChange={ (e) => this.setState({ hoops: e.target.value }) }
               />
             </Grid.Column>
@@ -68,7 +68,7 @@ class InputCourtInfo extends Component {
               </Button>
             </Grid.Column>
           </Grid.Row>
-          { /* todo: add something to the map itself to say 'location selected', this is crap UX */ }
+          { /* todo: is this + adding pin on map good enough? consider UX */ }
           { this.props.parkInfo && 
             <Grid.Row>
               <Grid.Column>

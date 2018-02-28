@@ -5,15 +5,13 @@ const defaultState = {
     lat: null,
     lng: null
   },
-  fullAddress: null,
-  placeId: null
+  formattedAddress: null
 }
 
 const setPark = (state = defaultState, action) => {
   switch (action.type) {
 
     case SET_SELECTED_LOCATION:
-      console.log('action', action.parkInfo);
       return {
         ...state,
         ...action.parkInfo

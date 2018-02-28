@@ -7,14 +7,14 @@ import SelectParkMap from './SelectParkMap'
 import './SelectParkContainer.less'
 
 class MapContainer extends Component {
-  handleSetPark = (parkInfo) => {
-    console.log('parkInfo', parkInfo);
+  handleSetLocation = (location, formattedAddress) => {
+
     const formattedInfo = {
       location: { 
-        lat: parkInfo.location.lat(),
-        lng: parkInfo.location.lng()
+        lat: location.lat(),
+        lng: location.lng()
       },
-      fullAddress: parkInfo.formatted_address
+      formattedAddress
     }
 
     this.props.setLocation(formattedInfo)
@@ -29,7 +29,7 @@ class MapContainer extends Component {
     return (
       <div style={ mapHeightWidth }>
         <SelectParkMap 
-          handleSetPark={ this.handleSetPark }
+          handleSetLocation={ this.handleSetLocation }
         />
       </div>
     )

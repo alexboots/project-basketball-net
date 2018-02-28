@@ -12,8 +12,8 @@ class SelectParkMap extends Component {
 
     this.map.addListener('click', (e) => {
       if(e && e.latLng) {
-        this.handleSelectLocation(e.latLng)
         this.createMarker(e.latLng)
+        this.handleSelectLocation(e.latLng)
       } else {
         console.error('GoogleMaps: Issue finding latLang')
       }
@@ -21,7 +21,6 @@ class SelectParkMap extends Component {
   }
 
   handleSelectLocation = (location) =>{
-    console.log('location', location);
     const geocoder = new google.maps.Geocoder
     const geocodeError = "GoogleMaps: Issue selecting location - please select somewhere else"
     geocoder.geocode({
@@ -29,10 +28,10 @@ class SelectParkMap extends Component {
     }, (results, status) => {
       if (status == google.maps.GeocoderStatus.OK) {
         if (results[0]) {
-          this.props.handleSetPark({
-              location,
-              fullAddress: results[0].formatted_address
-          })
+
+          // Store location in state
+          this.props.handleSetLocation(location, results[0].formatted_address)
+
         } else {
           console.error(geocodeError)
         }
@@ -72,48 +71,7 @@ class SelectParkMap extends Component {
     }
   }
 
-
-  // Maybe delete all this = need to play around with it. It doesn't show all parks :(
-  //
-  // showParksOnMap = (map, pos) => {
-  //   const { handleSetPark } = this.props
-  //   const that = this
-    
-  //   const service = new google.maps.places.PlacesService(map)
-  //   service.nearbySearch({
-  //     location: pos,
-  //     radius: 50,
-  //     // type: ['park', 'point_of_interest']
-  //   }, placeParks)
-
-  //   function placeParks (results, status) {
-  //     if (status === google.maps.places.PlacesServiceStatus.OK) {
-  //       for (let i = 0; i < results.length; i++) {
-  //         createMarker(results[i]);
-  //       }
-  //     }
-  //   }
-
-  //   function createMarker(place) {
-  //     const placeLoc = place.geometry.location;
-  //     const marker = new google.maps.Marker({
-  //       map: map,
-  //       position: place.geometry.location
-  //     })
-
-  //     google.maps.event.addListener(marker, 'click', function () {
-  //       const placeInfoWindow = new google.maps.InfoWindow()
-
-  //       placeInfoWindow.setContent(`${place.name} (selected)`)
-  //       placeInfoWindow.open(map, this)
-
-  //       // and pass data
-        // handleSetPark(place)
-  //     })
-  //   }
-  // }
-
-   createMarker = (location) => {
+  createMarker = (location) => {
     if(this.marker) {
       this.marker.setPosition(location);
     } else {
