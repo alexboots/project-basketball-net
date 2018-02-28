@@ -8,13 +8,13 @@ import './SelectParkContainer.less'
 
 class MapContainer extends Component {
   handleSetPark = (parkInfo) => {
+    console.log('parkInfo', parkInfo);
     const formattedInfo = {
       location: { 
-        lat: parkInfo.geometry.location.lat(),
-        lng: parkInfo.geometry.location.lng()
+        lat: parkInfo.location.lat(),
+        lng: parkInfo.location.lng()
       },
-      fullAddress: parkInfo.formatted_address,
-      placeId: parkInfo.place_id
+      fullAddress: parkInfo.formatted_address
     }
 
     this.props.setLocation(formattedInfo)

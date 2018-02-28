@@ -3,42 +3,43 @@ import React, { Component } from 'react'
 class SelectParkMap extends Component {
   componentDidMount() {
     const NY = { lat: 40.74, lng: -73.94 }
-    const map = new google.maps.Map(document.getElementById('map'), {
+    this.marker = null
+
+    this.map = new google.maps.Map(document.getElementById('map'), {
       center: NY,
       zoom: 12
     })
 
-    // map.addListener('center_changed', () => {
-    //     console.log('LOL');
-    //     console.log(map.getCenter().lat());
-    //     // map.getZoom()
-    //     const pos = { lat: map.getCenter().lat(), lng: map.getCenter().lng() }
-    //     this.showParksOnMap(map, pos)
-    // })
-
-    // map.addListener('zoom_changed', () => {
-    //     console.log('zoom');
-    //     const pos = { lat: map.getCenter().lat(), lng: map.getCenter().lng() }
-    //     this.showParksOnMap(map, pos)
-    // })
-
-    const geocoder = new google.maps.Geocoder
-    map.addListener('click', (e) => {
-      console.log('e.latLng', e.latLng);
-      
-      geocoder.geocode({
-        'latLng': e.latLng
-      }, function(results, status) {
-        console.log('results', results);
-        if (status == google.maps.GeocoderStatus.OK) {
-          if (results[0]) {
-            results[0].formatted_address
-          }
-        }
-      })
+    this.map.addListener('click', (e) => {
+      if(e && e.latLng) {
+        this.handleSelectLocation(e.latLng)
+        this.createMarker(e.latLng)
+      } else {
+        console.error('GoogleMaps: Issue finding latLang')
+      }
     })
+  }
 
-    this.centerMapOnUsersLocation(map)
+  handleSelectLocation = (location) =>{
+    console.log('location', location);
+    const geocoder = new google.maps.Geocoder
+    const geocodeError = "GoogleMaps: Issue selecting location - please select somewhere else"
+    geocoder.geocode({
+      'latLng': location
+    }, (results, status) => {
+      if (status == google.maps.GeocoderStatus.OK) {
+        if (results[0]) {
+          this.props.handleSetPark({
+              location,
+              fullAddress: results[0].formatted_address
+          })
+        } else {
+          console.error(geocodeError)
+        }
+      } else {
+        console.error(geocodeError)
+      }
+    })
   }
 
   centerMapOnUsersLocation = (map) => {
@@ -54,9 +55,9 @@ class SelectParkMap extends Component {
 
         infoWindow.setPosition(pos)
         infoWindow.setContent('You are here')
-        infoWindow.open(map)
-        map.setCenter(pos)
-        map.setZoom(18)
+        infoWindow.open(this.map)
+        this.map.setCenter(pos)
+        this.map.setZoom(18)
 
         // Show markers for parks nearby
         // this.showParksOnMap(map, pos)
@@ -107,13 +108,20 @@ class SelectParkMap extends Component {
   //       placeInfoWindow.open(map, this)
 
   //       // and pass data
-  //       handleSetPark(place)
+        // handleSetPark(place)
   //     })
   //   }
   // }
 
-  handleLocationError = () => {
-    console.warn('GeoLocation data not available')
+   createMarker = (location) => {
+    if(this.marker) {
+      this.marker.setPosition(location);
+    } else {
+      this.marker = new google.maps.Marker({
+        map: this.map,
+        position: location
+      })
+    }
   }
 
   render() {
