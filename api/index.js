@@ -40,7 +40,7 @@ app.post('/request', (req, res) => {
     location: {
       coordinates: [req.body.location.lat, req.body.location.lng]
     }
-  });
+  })
 
   RequestLocation.create({
     ...req.body,

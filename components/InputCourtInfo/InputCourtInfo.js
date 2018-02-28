@@ -31,8 +31,6 @@ class InputCourtInfo extends Component {
             <Grid.Column>
               <span className="label-count-location">
                 Location: 
-              
-
                 { this.props.parkInfo ? (
                   <span>
                     { ` ${this.props.parkInfo.formattedAddress} ` }
@@ -50,7 +48,7 @@ class InputCourtInfo extends Component {
                 type="number" 
                 placeholder="#" 
                 value={ this.state.netsRequested } 
-                onChange={ (e) => this.setState({ nets: e.target.value }) }
+                onChange={ (e) => this.setState({ netsRequested: e.target.value }) }
               />
             </Grid.Column>
             <Grid.Column>
@@ -59,7 +57,7 @@ class InputCourtInfo extends Component {
                 type="number" 
                 placeholder="#" 
                 value={ this.state.hoopsCount } 
-                onChange={ (e) => this.setState({ hoops: e.target.value }) }
+                onChange={ (e) => this.setState({ hoopsCount: e.target.value }) }
               />
             </Grid.Column>
             <Grid.Column>
@@ -73,6 +71,7 @@ class InputCourtInfo extends Component {
             <Grid.Column>
               <h4>&nbsp;</h4>
               <Button 
+                floated='right'
                 disabled={ disabled }
                 type="submit" onClick={ this.handleRequest }
               >

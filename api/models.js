@@ -22,7 +22,4 @@ const requestLocationSchema = new mongoose.Schema({
 const RequestLocation = mongoose.model('RequestLocation', requestLocationSchema)
 
 
-module.exports = {
-  RequestLocation: RequestLocation
-  // netCountSchema
-}
+module.exports = RequestLocation
