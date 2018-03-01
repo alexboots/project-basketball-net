@@ -31,14 +31,18 @@ db.once('open', function() {
 })
 
 
+// // Count nets:: model.count http://mongoosejs.com/docs/api.html#count_count
+// // Update nets count http://mongoosejs.com/docs/api.html#findoneandupdate_findOneAndUpdate
 app.use(cors())
 app.use(bodyParser.json())
 
 app.get('/requests', function (req, res) {
-  const requests = RequestLocation.find({ requestFulfilled: false })
-
-  console.log('requests', JSON.stringify(requests));
-  // res.send(requests)
+  RequestLocation.find({ requestFulfilled: false }, function (err, docs) {
+    if(err) {
+      res.send(err)
+    }
+    res.send(docs)
+  })
 })
 
 
