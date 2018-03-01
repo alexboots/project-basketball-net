@@ -1,6 +1,5 @@
 let express = require('express')
 let app = express()
-let proxy = require('http-proxy-middleware')
 // let https = require('https')
 // let fs = require('fs')
 
@@ -31,12 +30,6 @@ app.use('/dist', express.static('dist'))
 app.use(express.static(__dirname + '/dist'))
 // app.use(require('helmet')())
 
-let wsProxy = proxy('/api/', {
-  target: 'http://0.0.0.0:3000',
-  changeOrigin: false
-})
-
-app.use(wsProxy)
 app.listen(port)
 
 // if(process.env.NODE_ENV !== 'development') {
