@@ -7,7 +7,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "parcel index.html --open",
-    "dev-api": "nodemon ./api/index.js"
+    "dev-api": "nodemon ./api/index.js",
+    "prod": "parcel build index.html -p 80",
+    "prod-api": "node ./api/index.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
