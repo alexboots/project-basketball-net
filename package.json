@@ -9,6 +9,7 @@
     "dev": "parcel index.html --open",
     "dev-api": "nodemon ./api/index.js",
     "build": "parcel build index.html",
+    "prod": "node server.js",
     "prod-api": "node ./api/index.js"
   },
   "dependencies": {

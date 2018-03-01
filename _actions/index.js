@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+const baseRoute = 'http://0.0.0.0:3000/api'
 
 // Set location when user clicks map
 //***********************************************
@@ -17,7 +17,7 @@ export const setLocation = (locationInfo) => {
 //**********************
 //**********************
 
-const baseRoute = 'http://localhost:3000/api'
+
 // get current requests
 //***********************************************
 export const UNFULFILLED_LOCATIONS_REQUEST = 'UNFULFILLED_LOCATIONS_REQUEST'

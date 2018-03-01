@@ -1,5 +1,7 @@
+require('dotenv').config()
 let express = require('express')
 let app = express()
+let proxy = require('http-proxy-middleware')
 // let https = require('https')
 // let fs = require('fs')
 
@@ -12,7 +14,8 @@ let options
 //  `NODE_ENV=development node server.js`
 //  Must have ran `yarn build` first.
 // Use `yarn dev` server for developing
-if(process.env.NODE_ENV === 'development') {
+console.log('process.env.environment', process.env.environment);
+if(process.env.environment === 'development') {
   port = 1234
   sslPath = ''
   options = {}
@@ -30,6 +33,12 @@ app.use('/dist', express.static('dist'))
 app.use(express.static(__dirname + '/dist'))
 // app.use(require('helmet')())
 
+// let wsProxy = proxy('/api/', {
+//   target: 'http://0.0.0.0:3000',
+//   changeOrigin: false
+// })
+
+// app.use(wsProxy)
 app.listen(port)
 
 // if(process.env.NODE_ENV !== 'development') {

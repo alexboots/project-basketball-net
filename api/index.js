@@ -16,7 +16,6 @@ if(!process.env.envFileExists) {
 const port = process.env.port
 
 let connectionString = null
-console.log('HI', process.env.environment);
 if(process.env.environment === 'development') {
   connectionString = `mongodb://${process.env.dbuser}:${process.env.dbpass}@ds247178.mlab.com:47178/dev-project-basketball-net`
 } else {
@@ -41,7 +40,6 @@ app.use(bodyParser.json())
 // API routes
 const baseRoute = '/api'
 app.get(`${baseRoute}/requests`, function (req, res) {
-  console.log('PING');
   RequestLocation.find({ requestFulfilled: false }, function (err, docs) {
     if(err) {
       console.error('request unfulfilled requests', err);
@@ -62,11 +60,6 @@ app.post(`${baseRoute}/request`, (req, res) => {
     res.send(response)
   })
 })
-
-app.use('/dist', express.static('dist'))
-app.use(express.static(__dirname + '/dist'))
-
-
 
 app.listen(port, () => {
   console.log('api running on ', port);
