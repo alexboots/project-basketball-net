@@ -2,8 +2,8 @@ require('dotenv').config()
 let express = require('express')
 let app = express()
 let proxy = require('http-proxy-middleware')
-// let https = require('https')
-// let fs = require('fs')
+let https = require('https')
+let fs = require('fs')
 
 let port
 let sslPath
