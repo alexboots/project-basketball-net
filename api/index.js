@@ -62,6 +62,11 @@ app.post(`${baseRoute}/request`, (req, res) => {
   })
 })
 
+app.use('/dist', express.static('dist'))
+app.use(express.static(__dirname + '/dist'))
+
+
+
 app.listen(port, () => {
   console.log('api running on ', port);
 });
