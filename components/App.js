@@ -44,7 +44,8 @@ class App extends Component {
         <div className="app-header">
           <Header as='h2'> Project Basketball Net 
             <Header.Subheader>
-              We put nets on basketball rims
+              We put nets on basketball rims<br/>
+              <a href="https://instagram.com/projectbasketballnet" target="_blank">instagram.com/projectbasketballnet</a>
             </Header.Subheader>
           </Header>
         </div>
