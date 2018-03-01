@@ -6,6 +6,7 @@ const requestLocationSchema = new mongoose.Schema({
     type: { type: String, default: 'Point' },
     coordinates: [Number]
   },
+  placeId: String,
   createdAt: { type: Date, default: Date.now },
   requestFulfilled: { type: Boolean, default: false },
   fulfilledDate: { type: Date, default: null },
@@ -20,6 +21,5 @@ const requestLocationSchema = new mongoose.Schema({
 // const netCountSchema = new mongoose.Schema({ ammount: Number })
 
 const RequestLocation = mongoose.model('RequestLocation', requestLocationSchema)
-
 
 module.exports = RequestLocation

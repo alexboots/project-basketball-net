@@ -12,20 +12,21 @@ class MapContainer extends Component {
     axios.get('http://localhost:3000/requests/')
     .then(function (response) {
       console.log('response', response)
-      
+
       
     })
     .catch(function (error) {
       
     }) 
   }
-  handleSetLocation = (location, formattedAddress) => {
+  handleSetLocation = (location, formattedAddress, placeId) => {
     const formattedInfo = {
       location: { 
         lat: location.lat(),
         lng: location.lng()
       },
-      formattedAddress
+      formattedAddress,
+      placeId
     }
 
     this.props.setLocation(formattedInfo)

@@ -33,6 +33,7 @@ class SelectParkMap extends Component {
     })
   }
 
+
   handleSelectLocation = (location) =>{
     const geocoder = new google.maps.Geocoder
     const geocodeError = "GoogleMaps: Issue selecting location - please select somewhere else"
@@ -41,10 +42,11 @@ class SelectParkMap extends Component {
     }, (results, status) => {
       if (status == google.maps.GeocoderStatus.OK) {
         if (results[0]) {
-          console.log(results);
-
           // Store location in state
-          this.props.handleSetLocation(location, results[0].formatted_address)
+          console.log(results[0]);
+          const placeId = results[0].place_id
+          const formattedAddress = results[0].formatted_address
+          this.props.handleSetLocation(location, formattedAddress, placeId)
 
         } else {
           console.error(geocodeError)
