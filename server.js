@@ -14,7 +14,7 @@ let options
 //  `NODE_ENV=development node server.js`
 //  Must have ran `yarn build` first.
 // Use `yarn dev` server for developing
-console.log('process.env.environment', process.env.environment);
+
 if(process.env.environment === 'development') {
   port = 1234
   sslPath = ''
