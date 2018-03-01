@@ -21,17 +21,17 @@ if(process.env.environment === 'development') {
   options = {}
 } else {
    port = 80
-  //  sslPath = '/etc/letsencrypt/live/www.wordswithfiends.com/'
-  //  options = {
-  //     key: fs.readFileSync(sslPath + 'privkey.pem'),
-  //     cert: fs.readFileSync(sslPath + 'fullchain.pem')
-  // }
+   sslPath = '/etc/letsencrypt/live/www.projectbasketball.net/'
+   options = {
+      key: fs.readFileSync(sslPath + 'privkey.pem'),
+      cert: fs.readFileSync(sslPath + 'fullchain.pem')
+  }
 }
 
 
 app.use('/dist', express.static('dist'))
 app.use(express.static(__dirname + '/dist'))
-// app.use(require('helmet')())
+app.use(require('helmet')())
 
 // let wsProxy = proxy('/api/', {
 //   target: 'http://0.0.0.0:3000',
@@ -41,8 +41,8 @@ app.use(express.static(__dirname + '/dist'))
 // app.use(wsProxy)
 app.listen(port)
 
-// if(process.env.NODE_ENV !== 'development') {
-//   https.createServer(options, app).listen(443)
-// }
+if(process.env.NODE_ENV !== 'development') {
+  https.createServer(options, app).listen(443)
+}
 
 console.log('Why hello there')
