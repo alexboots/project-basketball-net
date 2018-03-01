@@ -17,6 +17,7 @@ export const setLocation = (locationInfo) => {
 //**********************
 //**********************
 
+const baseRoute = 'http://localhost:3000/api'
 // get current requests
 //***********************************************
 export const UNFULFILLED_LOCATIONS_REQUEST = 'UNFULFILLED_LOCATIONS_REQUEST'
@@ -31,7 +32,6 @@ function unfulfilledLocationsReceived(locations) {
   return {
     type: UNFULFILLED_LOCATIONS_RECEIVED,
     locations
-    // posts: json.data.children.map(child => child.data)
   }
 }
  
@@ -47,7 +47,7 @@ export function fetchUnfulfilledLocations() {
   return function (dispatch) {
     dispatch(unfulfilledLocations())
 
-    return axios.get('http://localhost:3000/requests/')
+    return axios.get(`${baseRoute}/requests/`)
       .then((response) => {
         const locations = response.data
         dispatch(unfulfilledLocationsReceived(locations))
@@ -86,14 +86,15 @@ export const netRequestError = () => {
 export const postNetRequest = (data) => {
   return function (dispatch) {
     dispatch(netRequest())
-    return axios.post('http://localhost:3000/request/', data)
+    return axios.post(`${baseRoute}/request/`, data)
       .then(function (response) {
         const formattedAddress = response.data.formattedAddress
         dispatch(netRequestSuccess(formattedAddress))
+        dispatch(unfulfilledLocations())
       })
       .catch(function (error) {
         console.error('postNetRequest :: ', error);
-        dispatch(netRequestError)
+        dispatch(netRequestError())
       })
   }
 }

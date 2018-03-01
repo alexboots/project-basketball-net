@@ -20,6 +20,8 @@ class InputCourtInfoContainer extends Component {
       <InputCourtInfo 
         locationInfo={ this.props.locationInfo } 
         handleNetRequest={ this.handleNetRequest }
+        requestingNet={ this.props.requestingNet }
+        netRequested={ this.props.netRequested }
       />
     )
   }
@@ -27,7 +29,9 @@ class InputCourtInfoContainer extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    locationInfo: state.selectLocation.formattedAddress ? state.selectLocation : null
+    locationInfo: state.selectLocation.formattedAddress ? state.selectLocation : null,
+    requestingNet: state.netRequest.posting,
+    netRequested: state.netRequest.formattedAddress
   }
 }
 

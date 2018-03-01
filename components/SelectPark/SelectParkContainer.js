@@ -8,7 +8,7 @@ import './SelectParkContainer.less'
 
 class MapContainer extends Component {
   componentDidMount() {
-    // this.props.fetchLocations()
+    this.props.fetchLocations()
   }
 
   handleNetRequest = (location, formattedAddress, placeId) => {
@@ -33,10 +33,18 @@ class MapContainer extends Component {
     return (
       <div style={ mapHeightWidth }>
         <SelectParkMap 
+          unfulfilledLocations={ this.props.unfulfilledLocations }
+          
           handleNetRequest={ this.handleNetRequest }
         />
       </div>
     )
+  }
+}
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    unfulfilledLocations: state.unfulfilledLocations.locations
   }
 }
 
@@ -49,4 +57,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   }
 })
 
-export default connect(null, mapDispatchToProps)(MapContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(MapContainer)

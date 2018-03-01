@@ -36,7 +36,11 @@ db.once('open', function() {
 app.use(cors())
 app.use(bodyParser.json())
 
-app.get('/requests', function (req, res) {
+
+// API routes
+const baseRoute = '/api'
+app.get(`${baseRoute}/requests`, function (req, res) {
+  console.log('PING');
   RequestLocation.find({ requestFulfilled: false }, function (err, docs) {
     if(err) {
       console.error('request unfulfilled requests', err);
@@ -46,23 +50,17 @@ app.get('/requests', function (req, res) {
   })
 })
 
-
-app.post('/request', (req, res) => {
+app.post(`${baseRoute}/request`, (req, res) => {
   RequestLocation.create({
     ...req.body,
     location: {
       coordinates: [req.body.location.lat, req.body.location.lng]
     }
-  }, function (err, location) {
+  }, function (err, response) {
     if(err) { res.status(500).send(err) }
-    res.send(location)
+    res.send(response)
   })
 })
-
-app.get('/', (req, res) => {
-  console.log('fuc');
-  res.send('Hello')
-});
 
 app.listen(port, () => {
   console.log('api running on ', port);

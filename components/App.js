@@ -11,7 +11,7 @@ import InputCourtInfoContainer from './InputCourtInfo/InputCourtInfoContainer'
 
 import {  
   TAB_REQUEST_MAP,
-  TAB_REQUESTED_MAP,
+  TAB_ADDED_NETS_MAP,
   TAB_ABOUT_US
 } from '../_constants/tabs'
 
@@ -31,7 +31,7 @@ class App extends Component {
           <SelectParkContainer />
         </div>
       )
-    } else if(tab === TAB_REQUESTED_MAP) {
+    } else if(tab === TAB_ADDED_NETS_MAP) {
       return ('We will add this shortly!')
     } else if(tab === TAB_ABOUT_US) {
       return (<About />)
@@ -55,9 +55,9 @@ class App extends Component {
             onClick={ () => this.setState({ tab: TAB_REQUEST_MAP }) } 
           />
           <Menu.Item 
-            active={ this.state.tab === TAB_REQUESTED_MAP  } 
-            name='Needs Nets'
-            onClick={ () => this.setState({ tab: TAB_REQUESTED_MAP }) } 
+            active={ this.state.tab === TAB_ADDED_NETS_MAP  } 
+            name='Put up nets'
+            onClick={ () => this.setState({ tab: TAB_ADDED_NETS_MAP }) } 
           />
           <Menu.Item 
             active={ this.state.tab === TAB_ABOUT_US } 

@@ -6,7 +6,7 @@ import {
 
 const defaultState = {
   loadingUnfulfilledLocations: false,
-  unfulfilledLocation: [],
+  locations: [],
   unfulfilledError: null
 }
 
@@ -21,7 +21,7 @@ const unfulfilledLocations = (state = defaultState, action) => {
       return {
         ...state,
         loadingUnfulfilledLocations: false,
-        unfulfilledLocation: action.locations
+        locations: action.locations
       }
     case UNFULFILLED_LOCATIONS_ERROR:
       return {
