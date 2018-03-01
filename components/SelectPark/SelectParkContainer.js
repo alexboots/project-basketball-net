@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import axios from 'axios'
 
 import { setLocation } from '../../_actions'
 
@@ -7,8 +8,18 @@ import SelectParkMap from './SelectParkMap'
 import './SelectParkContainer.less'
 
 class MapContainer extends Component {
+  componentDidMount() {
+    axios.get('http://localhost:3000/requests/')
+    .then(function (response) {
+      console.log('response', response)
+      
+      
+    })
+    .catch(function (error) {
+      
+    }) 
+  }
   handleSetLocation = (location, formattedAddress) => {
-
     const formattedInfo = {
       location: { 
         lat: location.lat(),

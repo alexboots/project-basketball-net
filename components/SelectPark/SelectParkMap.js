@@ -22,6 +22,8 @@ class SelectParkMap extends Component {
     })
 
     this.map.addListener('click', (e) => {
+      console.log(e);
+      // todo: also save place_id so we can look up place name if it exists: https://developers.google.com/places/web-service/details
       if(e && e.latLng) {
         this.createMarker(e.latLng)
         this.handleSelectLocation(e.latLng)
@@ -39,6 +41,7 @@ class SelectParkMap extends Component {
     }, (results, status) => {
       if (status == google.maps.GeocoderStatus.OK) {
         if (results[0]) {
+          console.log(results);
 
           // Store location in state
           this.props.handleSetLocation(location, results[0].formatted_address)
@@ -105,14 +108,14 @@ class SelectParkMap extends Component {
   render() {
     return (
       <span>
-
         <div className="btn-find-me">
           <Button 
             size='small' 
             onClick={ this.centerMapOnUsersLocation }
             disabled={ this.state.loadingLocation } 
           >
-            { this.state.loadingLocation ? <Loader size='small' inline active /> : 'Zoom into my location' }
+            Zoom into my location
+            { this.state.loadingLocation && <Loader className='btn-find-me-loader' size='mini' inline active />  }
           </Button>
         </div>
 

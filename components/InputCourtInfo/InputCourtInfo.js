@@ -29,20 +29,6 @@ class InputCourtInfo extends Component {
         <Grid columns='equal' stackable>
           <Grid.Row>
             <Grid.Column>
-              <span className="label-count-location">
-                Location:  
-                { this.props.parkInfo ? (
-                  <span className="underlined">
-                    { ` ${this.props.parkInfo.formattedAddress} ` }
-                    <Icon disabled name='checkmark' color='green' />
-                  </span>) 
-                  :  (' (Tap map below to set) ') 
-                }
-              </span>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column>
               <h4>Nets needed </h4>
               <Input 
                 type="number" 
@@ -77,6 +63,20 @@ class InputCourtInfo extends Component {
               >
                 Request
               </Button>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column>
+              <span className="label-count-location">
+                Location:  
+                { this.props.parkInfo ? (
+                  <span className="underlined">
+                    { ` ${this.props.parkInfo.formattedAddress} ` }
+                    <Icon disabled name='checkmark' color='green' />
+                  </span>) 
+                  :  (' (Tap map below to set) ') 
+                }
+              </span>
             </Grid.Column>
           </Grid.Row>
         </Grid>
