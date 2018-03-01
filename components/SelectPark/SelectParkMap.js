@@ -22,7 +22,6 @@ class SelectParkMap extends Component {
     })
 
     this.map.addListener('click', (e) => {
-      console.log(e);
       // todo: also save place_id so we can look up place name if it exists: https://developers.google.com/places/web-service/details
       if(e && e.latLng) {
         this.createMarker(e.latLng)
@@ -43,10 +42,9 @@ class SelectParkMap extends Component {
       if (status == google.maps.GeocoderStatus.OK) {
         if (results[0]) {
           // Store location in state
-          console.log(results[0]);
           const placeId = results[0].place_id
           const formattedAddress = results[0].formatted_address
-          this.props.handleSetLocation(location, formattedAddress, placeId)
+          this.props.handleNetRequest(location, formattedAddress, placeId)
 
         } else {
           console.error(geocodeError)

@@ -1,8 +1,13 @@
 import { combineReducers } from 'redux'
-import parkInfo from './parkInfo'
+
+import selectLocation from './selectLocation'
+import netRequest from './netRequest'
+import unfulfilledLocations from './unfulfilledLocations'
 
 const reducers = combineReducers({
-  parkInfo
+  selectLocation,
+  netRequest,
+  unfulfilledLocations
 })
 
 export default reducers

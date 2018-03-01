@@ -1,26 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import axios from 'axios'
 
-import { setLocation } from '../../_actions'
+import { setLocation, fetchUnfulfilledLocations } from '../../_actions'
 
 import SelectParkMap from './SelectParkMap'
 import './SelectParkContainer.less'
 
 class MapContainer extends Component {
   componentDidMount() {
-    axios.get('http://localhost:3000/requests/')
-    .then(function (response) {
-      console.log('response', response)
-
-      
-    })
-    .catch(function (error) {
-      
-    }) 
+    // this.props.fetchLocations()
   }
-  handleSetLocation = (location, formattedAddress, placeId) => {
-    const formattedInfo = {
+
+  handleNetRequest = (location, formattedAddress, placeId) => {
+    const formattedData = {
       location: { 
         lat: location.lat(),
         lng: location.lng()
@@ -29,7 +21,7 @@ class MapContainer extends Component {
       placeId
     }
 
-    this.props.setLocation(formattedInfo)
+    this.props.handleSetLocation(formattedData)
   }
 
   render() {
@@ -41,7 +33,7 @@ class MapContainer extends Component {
     return (
       <div style={ mapHeightWidth }>
         <SelectParkMap 
-          handleSetLocation={ this.handleSetLocation }
+          handleNetRequest={ this.handleNetRequest }
         />
       </div>
     )
@@ -49,8 +41,11 @@ class MapContainer extends Component {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  setLocation: (info) => {
-    dispatch(setLocation(info))
+  handleSetLocation: (data) => {
+    dispatch(setLocation(data))
+  },
+  fetchLocations: () => {
+    dispatch(fetchUnfulfilledLocations())
   }
 })
 

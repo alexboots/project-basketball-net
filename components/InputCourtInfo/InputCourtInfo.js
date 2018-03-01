@@ -12,9 +12,9 @@ class InputCourtInfo extends Component {
     }
   }
 
-  handleRequest = (e) => {
+  handleNetRequest = (e) => {
     e.preventDefault()
-    this.props.handleRequest({ 
+    this.props.handleNetRequest({ 
       netsRequested: this.state.netsRequested,
       hoopsCount: this.state.hoopsCount,
       notes: this.state.notes
@@ -22,7 +22,7 @@ class InputCourtInfo extends Component {
   }
 
   render() {
-    const disabled = !(this.props.parkInfo !== null && this.state.netsRequested.length !== 0 && this.state.hoopsCount.length !== 0)
+    const disabled = !(this.props.locationInfo !== null && this.state.netsRequested.length !== 0 && this.state.hoopsCount.length !== 0)
 
     return (
       <div className="net-info-inputs">
@@ -59,7 +59,7 @@ class InputCourtInfo extends Component {
               <Button 
                 floated='right'
                 disabled={ disabled }
-                type="submit" onClick={ this.handleRequest }
+                type="submit" onClick={ this.handleNetRequest }
               >
                 Request
               </Button>
@@ -69,9 +69,9 @@ class InputCourtInfo extends Component {
             <Grid.Column>
               <span className="label-count-location">
                 Location:  
-                { this.props.parkInfo ? (
+                { this.props.locationInfo ? (
                   <span className="underlined">
-                    { ` ${this.props.parkInfo.formattedAddress} ` }
+                    { ` ${this.props.locationInfo.formattedAddress} ` }
                     <Icon disabled name='checkmark' color='green' />
                   </span>) 
                   :  (' (Tap map below to set) ') 
@@ -86,4 +86,3 @@ class InputCourtInfo extends Component {
 }
 
 export default InputCourtInfo
-

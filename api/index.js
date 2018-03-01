@@ -39,15 +39,18 @@ app.use(bodyParser.json())
 app.get('/requests', function (req, res) {
   RequestLocation.find({ requestFulfilled: false }, function (err, docs) {
     if(err) {
+      console.error('request unfulfilled requests', err);
       res.send(err)
     }
+    console.log('docs', docs);
     res.send(docs)
   })
 })
 
 
 app.post('/request', (req, res) => {
-  console.log('F', {
+  console.log('req', req.body);
+  console.log('HELLO WORLD', {
     ...req.body,
     location: {
       coordinates: [req.body.location.lat, req.body.location.lng]

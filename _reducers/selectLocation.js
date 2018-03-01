@@ -1,4 +1,4 @@
-import { SET_SELECTED_LOCATION } from '../_constants/actions'
+import { SET_SELECTED_LOCATION } from '../_actions'
 
 const defaultState = {
   location: { 
@@ -8,17 +8,16 @@ const defaultState = {
   formattedAddress: null
 }
 
-const setPark = (state = defaultState, action) => {
+const selectLocation = (state = defaultState, action) => {
   switch (action.type) {
-
     case SET_SELECTED_LOCATION:
       return {
         ...state,
-        ...action.parkInfo
+        ...action.locationInfo
       }
     default:
       return state
   }
 }
 
-export default setPark
+export default selectLocation
