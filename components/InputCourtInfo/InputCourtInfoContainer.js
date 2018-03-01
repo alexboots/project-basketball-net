@@ -26,8 +26,7 @@ class InputCourtInfoContainer extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return { 
-    hi: 'what is going on',
+  return {
     locationInfo: state.selectLocation.formattedAddress ? state.selectLocation : null
   }
 }

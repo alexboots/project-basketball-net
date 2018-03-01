@@ -69,9 +69,10 @@ export const netRequest = (data) => {
 }
 
 export const POST_NET_REQUEST_SUCCESS = 'POST_NET_REQUEST_SUCCESS' 
-export const netRequestSuccess = () => {
+export const netRequestSuccess = (formattedAddress) => {
   return {
-    type: POST_NET_REQUEST_SUCCESS
+    type: POST_NET_REQUEST_SUCCESS,
+    formattedAddress
   }
 }
 
@@ -85,10 +86,10 @@ export const netRequestError = () => {
 export const postNetRequest = (data) => {
   return function (dispatch) {
     dispatch(netRequest())
-    console.log('data', data);
     return axios.post('http://localhost:3000/request/', data)
       .then(function (response) {
-        dispatch(netRequestSuccess)
+        const formattedAddress = response.data.formattedAddress
+        dispatch(netRequestSuccess(formattedAddress))
       })
       .catch(function (error) {
         console.error('postNetRequest :: ', error);

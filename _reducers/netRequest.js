@@ -5,7 +5,8 @@ import {
 } from '../_actions'
 
 const defaultState = {
-  posting: false
+  posting: false,
+  formattedAddress: null
 }
 
 const netRequest = (state = defaultState, action) => {
@@ -13,18 +14,21 @@ const netRequest = (state = defaultState, action) => {
     case POST_NET_REQUEST:
       return {
         ...state,
-        posting: true
+        posting: true,
+        formattedAddress: null
       }
     case POST_NET_REQUEST_SUCCESS:
       return {
         ...state,
-        posting: false
+        posting: false,
+        formattedAddress: action.formattedAddress
       }
     case POST_NET_REQUEST_ERROR:
       return {
         ...state,
         ...action.error,
-        posting: false
+        posting: false,
+        formattedAddress: null
       }
     default:
       return state

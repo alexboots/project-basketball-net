@@ -40,32 +40,24 @@ app.get('/requests', function (req, res) {
   RequestLocation.find({ requestFulfilled: false }, function (err, docs) {
     if(err) {
       console.error('request unfulfilled requests', err);
-      res.send(err)
+      res.status(500).send(err)
     }
-    console.log('docs', docs);
     res.send(docs)
   })
 })
 
 
 app.post('/request', (req, res) => {
-  console.log('req', req.body);
-  console.log('HELLO WORLD', {
-    ...req.body,
-    location: {
-      coordinates: [req.body.location.lat, req.body.location.lng]
-    }
-  })
-
   RequestLocation.create({
     ...req.body,
     location: {
       coordinates: [req.body.location.lat, req.body.location.lng]
     }
+  }, function (err, location) {
+    if(err) { res.status(500).send(err) }
+    res.send(location)
   })
-
-  res.send('REQUESTED')
-});
+})
 
 app.get('/', (req, res) => {
   console.log('fuc');
