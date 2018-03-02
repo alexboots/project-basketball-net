@@ -33,7 +33,10 @@ app.use('/dist', express.static('dist'))
 app.use(express.static(__dirname + '/dist'))
 app.use(require('helmet')())
 
+app.listen(port)
+
 app.use((req, res, next) => {
+  console.log('req.secure', req.secure);
   if (!req.secure && process.env.environment !== "development") {
     let addWWW = ''
     if (req.headers.host.slice(0, 4) !== 'www.') {
@@ -56,8 +59,6 @@ app.use(apiProxy)
 
 if(process.env.environment !== 'development') {
   https.createServer(options, app).listen(443)
-} else {
-  app.listen(port)
 }
 
 console.log('Why hello there')
