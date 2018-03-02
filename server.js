@@ -33,11 +33,13 @@ app.use('/dist', express.static('dist'))
 app.use(express.static(__dirname + '/dist'))
 app.use(require('helmet')())
 
-app.listen(port)
-
 app.use((req, res, next) => {
-  if ((!req.secure || req.headers.host.slice(0, 4) !== 'www.') &&  process.env.environment !== "development") {
-    return res.redirect('https://www.' + req.get('host') + req.url)
+  if (!req.secure && process.env.environment !== "development") {
+    let addWWW = ''
+    if (req.headers.host.slice(0, 4) !== 'www.') {
+      addWWW = 'www.'
+    }
+    return res.redirect(`https://${addWWW}` + req.get('host') + req.url)
   }
   next()
 })
@@ -53,4 +55,5 @@ if(process.env.environment !== 'development') {
   https.createServer(options, app).listen(443)
 }
 
+app.listen(port)
 console.log('Why hello there')
