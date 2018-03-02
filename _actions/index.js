@@ -1,10 +1,6 @@
 import axios from 'axios'
 
-// let baseRoute = 'http://localhost:3000/api'
-
-// if(process.env.NODE_ENV === 'production') {
 let baseRoute = '/api'
-// }
 
 // Set location when user clicks map
 //***********************************************
