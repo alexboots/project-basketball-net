@@ -33,15 +33,21 @@ app.use('/dist', express.static('dist'))
 app.use(express.static(__dirname + '/dist'))
 app.use(require('helmet')())
 
-let wsProxy = proxy('/api/', {
+app.listen(port)
+
+app.use((req, res, next) => {
+  if ((!req.secure || req.headers.host.slice(0, 4) !== 'www.') &&  process.env.environment !== "development") {
+    return res.redirect('https://www.' + req.get('host') + req.url)
+  }
+  next()
+})
+
+let apiProxy = proxy('/api/', {
   target: 'http://0.0.0.0:3000',
   changeOrigin: false
 })
 
-console.log('port', port);
-
-app.use(wsProxy)
-app.listen(port)
+app.use(apiProxy)
 
 if(process.env.environment !== 'development') {
   https.createServer(options, app).listen(443)
