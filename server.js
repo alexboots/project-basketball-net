@@ -29,26 +29,22 @@ if(process.env.environment === 'development') {
 }
 
 
-app.use('/dist', express.static('dist'))
-app.use(express.static(__dirname + '/dist'))
 app.use(require('helmet')())
-
 app.listen(port)
 
 app.use((req, res, next) => {
-  console.log('req.secure', req.secure);
   if (!req.secure && process.env.environment !== "development") {
     let addWWW = ''
     if (req.headers.host.slice(0, 4) !== 'www.') {
       addWWW = 'www.'
     }
-    console.log('\n');
-    console.log("`https://${addWWW}` + req.get('host') + req.url", `https://${addWWW}` + req.get('host') + req.url);
-    console.log("\n");
     return res.redirect(`https://${addWWW}` + req.get('host') + req.url)
   }
   next()
 })
+
+app.use('/dist', express.static('dist'))
+app.use(express.static(__dirname + '/dist'))
 
 let apiProxy = proxy('/api/', {
   target: 'http://0.0.0.0:3000',
