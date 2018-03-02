@@ -13,9 +13,14 @@ if(!process.env.envFileExists) {
   console.log("Or ping  @alexboots and ask for it :)")
 }
 
-const port = process.env.port
+const port = 3000
 
 let connectionString = null
+
+console.log("\n\n*****");
+console.log('process.env.environment', process.env.environment);
+console.log("*****\n\n");
+
 if(process.env.environment === 'development') {
   connectionString = `mongodb://${process.env.dbuser}:${process.env.dbpass}@ds247178.mlab.com:47178/dev-project-basketball-net`
 } else {
