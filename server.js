@@ -39,6 +39,9 @@ app.use((req, res, next) => {
     if (req.headers.host.slice(0, 4) !== 'www.') {
       addWWW = 'www.'
     }
+    console.log('\n');
+    console.log("`https://${addWWW}` + req.get('host') + req.url", `https://${addWWW}` + req.get('host') + req.url);
+    console.log("\n");
     return res.redirect(`https://${addWWW}` + req.get('host') + req.url)
   }
   next()
@@ -53,7 +56,8 @@ app.use(apiProxy)
 
 if(process.env.environment !== 'development') {
   https.createServer(options, app).listen(443)
+} else {
+  app.listen(port)
 }
 
-app.listen(port)
 console.log('Why hello there')
