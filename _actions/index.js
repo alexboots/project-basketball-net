@@ -1,11 +1,9 @@
 import axios from 'axios'
 
-let baseRoute = 'http://0.0.0.0:3000/api'
-
-console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+let baseRoute = 'http://localhost:3000/api'
 
 if(process.env.NODE_ENV === 'production') {
-  baseRoute = 'https://0.0.0.0:3000/api'
+  baseRoute = '/api'
 }
 
 // Set location when user clicks map
