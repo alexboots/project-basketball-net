@@ -1,7 +1,11 @@
 import axios from 'axios'
 
-let baseRoute = '/api'
 
+let baseRoute = `/api`
+if(window.location.port === '1234') {
+  // Temp fix for hitting API locally
+  baseRoute = `${window.location.protocol}//${window.location.hostname}:3000/api`  
+}
 // Set location when user clicks map
 //***********************************************
 export const SET_SELECTED_LOCATION = 'SET_SELECTED_LOCATION'
