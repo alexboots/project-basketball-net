@@ -1,3 +1,7 @@
+**This project has been sunsetted. We used zip ties to place the nets on the baskets but they broke fairly quickly due to the ball hitting them over and over again. Any ideas to keep nets up for longer are welcome!**
+
+--- 
+
 ### Project Basketball Net
 [projectbasketball.net](http://projectbasketball.net)
 
