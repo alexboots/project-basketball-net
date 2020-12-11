@@ -3,8 +3,7 @@
 --- 
 
 ### Project Basketball Net
-[projectbasketball.net](http://projectbasketball.net)
-
+http://projectbasketball.net (Do not go here - it seems like some virus site has taken over the URL 😑)
 Help users request nets for their local bbal courts.
 
 To run this project locally you must have [parceljs](https://github.com/parcel-bundler/parcel#getting-started) and [nodemon](https://github.com/remy/nodemon#installation) installed globally, and then you can run:
