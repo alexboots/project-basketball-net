@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const requestLocationSchema = new mongoose.Schema({
+const RequestLocationSchema = new mongoose.Schema({
   formattedAddress: String,
   location: {
     type: { type: String, default: 'Point' },
@@ -20,6 +20,6 @@ const requestLocationSchema = new mongoose.Schema({
 // +1 everytime a request is fulfilled, should probably use a query instead
 // const netCountSchema = new mongoose.Schema({ ammount: Number })
 
-const RequestLocation = mongoose.model('RequestLocation', requestLocationSchema)
+const RequestLocation = mongoose.model('RequestLocation', RequestLocationSchema)
 
 module.exports = RequestLocation

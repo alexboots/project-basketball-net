@@ -40,14 +40,16 @@ class SelectParkMap extends Component {
 
   placeRequestsOnMap = () => {
     if(this.props.unfulfilledLocations.length > 5) {
-      // geocode API only allows 5 (or 10 maybe?) requests every 2 for cheapskates like ourselves
+      // geocode API only allows 5 (or 10 maybe?) requests every 2 seconds for cheapskates like ourselves
       let timesToCall = Math.ceil(this.props.unfulfilledLocations.length / 5)
       let locationsToPass = 0
       let interval = setInterval(() => {
         if(timesToCall  === 0) {
           clearInterval(interval)
         } else {
-          const locations = this.props.unfulfilledLocations.slice(locationsToPass * 5, locationsToPass * 5 + 5)
+          const lookupStart = locationsToPass * 5
+          const lookupEnd = lookupStart + 5
+          const locations = this.props.unfulfilledLocations.slice(lookupStart, lookupEnd)
           this.placeRequestMarkers(locations)
           locationsToPass++
           timesToCall--
